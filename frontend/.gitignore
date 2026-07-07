@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Development
+.DS_Store
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Dependencies lock files (optional)
+yarn.lock
+package-lock.json
