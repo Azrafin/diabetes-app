@@ -48,24 +48,34 @@ def predict():
             "Riwayat_Keluarga", "Usia"
         ]
         
-        features = []
+        features = {}
+
         for key in feature_keys:
-            # Validasi input kosong
             if key not in data or data[key] == "":
-                return jsonify({"error": f"Data input tidak lengkap (Kehilangan {key})"}), 400
-            
-            # Validasi tipe data dan nilai negatif
+                return jsonify({
+                    "error": f"Data input tidak lengkap (Kehilangan {key})"
+                }), 400
+
             try:
                 val = float(data[key])
-                if val < 0:
-                    return jsonify({"error": f"Input {key} tidak boleh negatif"}), 400
-                features.append(val)
-            except ValueError:
-                return jsonify({"error": f"Input {key} harus angka"}), 400
 
-        # Pipeline: Array -> Reshape -> Transform -> Predict
-        input_array = np.array(features).reshape(1, 8)
-        input_scaled = scaler.transform(input_array)
+                if val < 0:
+                    return jsonify({
+                        "error": f"Input {key} tidak boleh negatif"
+                    }), 400
+
+                features[key] = val
+
+            except ValueError:
+                return jsonify({
+                    "error": f"Input {key} harus angka"
+                }), 400
+
+
+        input_dataframe = pd.DataFrame([features])
+
+        input_scaled = scaler.transform(input_dataframe)
+
         prediction = int(model.predict(input_scaled)[0])
         
         # Ambil probabilitas jika model mendukung
