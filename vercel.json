@@ -11,7 +11,14 @@
     },
     "rewrites": [
         {
-            "source": "/api(/.*)?",
+            "source": "/predict",
+            "destination": {
+                "type": "service",
+                "service": "backend"
+            }
+        },
+        {
+            "source": "/nutrition-recommendations",
             "destination": {
                 "type": "service",
                 "service": "backend"
