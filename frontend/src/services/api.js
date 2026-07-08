@@ -1,7 +1,13 @@
 import axios from 'axios'
 
+// const api = axios.create({
+//   baseURL: import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000',
+//   timeout: 5000,
+// })
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000',
+  // Menghapus 'http://127.0.0.1:5000' dan menggantinya dengan string kosong ''
+  // agar Axios menembak ke domain Vercel itu sendiri secara relatif
+  baseURL: import.meta.env.VITE_API_BASE_URL || '', 
   timeout: 5000,
 })
 
