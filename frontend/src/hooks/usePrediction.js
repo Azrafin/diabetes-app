@@ -57,12 +57,14 @@ export function usePrediction() {
             : 'Risiko diabetes rendah. Tetap menjaga pola makan dan aktivitas fisik.'),
       }
       setResult(normalizedResult)
-    } catch (error) {
-      setResult(null)
-      setMessage(error.response?.data?.error || 'Prediksi gagal. Periksa koneksi backend Anda.')
-    } finally {
-      setIsLoading(false)
-    }
+    }  catch (error) {
+  setResult(null)
+  // Memastikan yang dimasukkan ke setMessage ADALAH STRING, bukan object bawaan Axios/Vercel
+  const errorMsg = error.response?.data?.error || error.message || 'Prediksi gagal. Periksa koneksi backend Anda.'
+  setMessage(String(errorMsg))
+} finally {
+  setIsLoading(false)
+}
   }
 
   return {
